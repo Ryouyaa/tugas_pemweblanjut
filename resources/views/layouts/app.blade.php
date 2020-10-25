@@ -82,9 +82,17 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <div class="mt-3">
+                        <main class="py-4">
+                            @yield('content')
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
