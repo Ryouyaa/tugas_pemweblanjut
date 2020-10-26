@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2020 at 07:41 AM
+-- Generation Time: Oct 26, 2020 at 08:32 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -50,15 +50,16 @@ CREATE TABLE `mahasiswa` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prodi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `users_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`id`, `nama`, `nim`, `email`, `prodi`, `created_at`, `updated_at`) VALUES
-(1, 'Muhammad Hafizh Andifaisa', '117515070111100', 'hafizhandifaisa@student.ub.ac.id', 'Teknologi Informasi', NULL, NULL);
+INSERT INTO `mahasiswa` (`id`, `nama`, `nim`, `email`, `prodi`, `created_at`, `updated_at`, `users_id`) VALUES
+(1, 'Muhammad Hafizh Andifaisa', '117515070111100', 'hafizhandifaisa@student.ub.ac.id', 'Teknologi Informasi', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Muhammad Hafizh Andifaisa', 'hafizhandifaisa@student.ub.ac.id', NULL, '$2y$10$VuIxrpS9./NRxYkWdwFEzO5sONlRVXyViOR/g.DiDEX/EeOvPIhGy', 'eLyb0fhfVJZL0Czx8RtQus6brmf7wJBqB1CpuFGbUdBMxri4ZQVV4aepsdRq', '2020-10-24 23:02:56', '2020-10-24 23:02:56');
+(1, 'Muhammad Hafizh Andifaisa', 'hafizhandifaisa@student.ub.ac.id', NULL, '$2y$10$VuIxrpS9./NRxYkWdwFEzO5sONlRVXyViOR/g.DiDEX/EeOvPIhGy', 'fkXTCDSYAeudo6lpcIHgKox00xitQ1gJpcTejq3rIfRFLoUOrgljcKBqCrwp', '2020-10-24 23:02:56', '2020-10-24 23:02:56');
 
 --
 -- Indexes for dumped tables
@@ -134,7 +135,8 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `mahasiswa_nim_unique` (`nim`);
+  ADD UNIQUE KEY `mahasiswa_nim_unique` (`nim`),
+  ADD KEY `fk_users_id` (`users_id`);
 
 --
 -- Indexes for table `migrations`
@@ -182,6 +184,16 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
+  ADD CONSTRAINT `fk_users_id` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
